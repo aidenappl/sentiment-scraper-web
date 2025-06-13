@@ -1,8 +1,8 @@
 # Sentiment Scraper (Next.js)
 
-_Project by [Aiden Appleby](https://aidenappleby.com)_
-
 A simple web app that scrapes stock-related content from social media and news sources, analyzes sentiment, and displays the Top 5 and Bottom 5 stocks based on public sentiment.
+
+_Project by [Aiden Appleby](https://aidenappleby.com)_
 
 ## Features1
 
