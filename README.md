@@ -4,7 +4,7 @@ A simple web app that scrapes stock-related content from social media and news s
 
 _Project by [Aiden Appleby](https://aidenappleby.com)_
 
-## Features1
+## Features
 
 - Scrapes data from Reddit, Twitter, and News APIs
 - Extracts stock tickers and relevant mentions
