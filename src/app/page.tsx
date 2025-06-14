@@ -1,3 +1,88 @@
+"use client";
+
+import { fetchApi } from "@/tools/axios.tools";
+import { News } from "@/types";
+import { useEffect, useState } from "react";
+
 export default function Home() {
-  return <div className="min-h-[calc(100vh-100px)] p-4"></div>;
+  const [news, setNews] = useState<News[] | null>(null);
+
+  const initialize = async () => {
+    try {
+      const newsData = await getNews();
+      console.log("News data fetched successfully:", newsData);
+      setNews(newsData);
+    } catch (error) {
+      console.error("Error fetching news:", error);
+    }
+  };
+
+  const getNews = async (): Promise<News[]> => {
+    const response = await fetchApi<News[]>({
+      method: "GET",
+      url: "/core/v1/news",
+    });
+
+    if (response.success) {
+      setNews(response.data);
+      return response.data;
+    }
+
+    throw new Error(response.error_message);
+  };
+
+  useEffect(() => {
+    initialize();
+  }, []);
+
+  return (
+    <div className="min-h-[calc(100vh-100px)] p-4">
+      {news ? (
+        <div>
+          {news.map((article) => (
+            <div
+              key={article.id}
+              id={article.id.toString()}
+              className="mb-6 p-4 border rounded-lg"
+            >
+              <div className="flex gap-1 mb-2">
+                {article.tickers?.map((ticker) => (
+                  <span
+                    key={ticker}
+                    className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded"
+                  >
+                    {ticker}
+                  </span>
+                ))}
+              </div>
+              <h2 className="text-xl font-bold">{article.title}</h2>
+              <p className="text-gray-600">{article.summary_text}</p>
+              <p className="text-sm text-gray-500">
+                Posted at: {new Date(article.posted_at).toLocaleString()}
+              </p>
+              <div className="flex justify-between">
+                <a
+                  href={article.article_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:underline"
+                >
+                  Read more
+                </a>
+                <a>
+                  {article.sentiment ? (
+                    <span>{article.sentiment.sentiment_summary}</span>
+                  ) : (
+                    <span>No Sentiment Data</span>
+                  )}
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
 }
