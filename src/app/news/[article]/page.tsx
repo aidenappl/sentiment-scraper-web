@@ -2,6 +2,7 @@
 
 import { fetchApi } from "@/tools/axios.tools";
 import { News } from "@/types";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -46,9 +47,18 @@ const Article = () => {
             <span className="text-slate-900 text-lg font-medium">
               By {news.authors}
             </span>
-            <span className="text-slate-500 text-sm">
-              Posted at: {new Date(news.posted_at).toLocaleString()}
-            </span>
+            <div className="flex justify-between items-center">
+              <span className="text-slate-500 text-sm">
+                Posted at: {new Date(news.posted_at).toLocaleString()}
+              </span>
+              <Link
+                className="text-blue-600 text-sm"
+                href={news.article_url}
+                target="_blank"
+              >
+                Read Original Article
+              </Link>
+            </div>
             <div className="flex flex-col gap-2">
               {news.body_content?.split("\n").map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
