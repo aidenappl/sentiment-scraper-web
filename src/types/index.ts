@@ -19,6 +19,8 @@ type News = {
   tickers: string[] | null;
   sentiment: Sentiment | null;
   inserted_at: string;
+  authors: string | null;
+  body_content: string | null;
 };
 
 type Sentiment = {
@@ -34,6 +36,11 @@ type Sentiment = {
   subjectivity: number | null;
   language: string | null;
   source: string | null;
+  vader_neu: number | null;
+  vader_pos: number | null;
+  vader_neg: number | null;
+  vader_comp: number | null;
+  multitext_class: number | null;
   processed_at: string | null; // ISO string (time.Time in Go)
   inserted_at: string | null;  // ISO string (time.Time in Go)
   status: GeneralNSN | null;
