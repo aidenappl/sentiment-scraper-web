@@ -66,15 +66,10 @@ export default function Home() {
                   Posted at: {new Date(article.posted_at).toLocaleString()}
                 </p>
                 <div className="flex justify-between">
-                  <a
-                    href={article.article_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 font-semibold hover:underline"
-                  >
+                  <p className="text-blue-500 font-semibold hover:underline">
                     Read more
-                  </a>
-                  <a>
+                  </p>
+                  <p>
                     {article.sentiment ? (
                       <>
                         {article.sentiment.status?.id == 4 ? (
@@ -106,7 +101,7 @@ export default function Home() {
                     ) : (
                       <span>No Sentiment Data</span>
                     )}
-                  </a>
+                  </p>
                 </div>
               </Link>
             </div>

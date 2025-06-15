@@ -91,45 +91,86 @@ const Article = () => {
               <i>
                 <b>Summary:</b> {news.sentiment?.sentiment_summary}
               </i>
-              <p>
-                <b>Score:</b> {news.sentiment?.score}
-              </p>
-              <p>
-                <b>Positive:</b> {news.sentiment?.positive}
-              </p>
-              <p>
-                <b>Negative:</b> {news.sentiment?.negative}
-              </p>
-              <p>
-                <b>Neutral:</b> {news.sentiment?.neutral}
-              </p>
-              <p>
-                <b>Confidence:</b> {news.sentiment?.confidence}
-              </p>
-              <p>
-                <b>Subjectivity:</b> {news.sentiment?.subjectivity}
-              </p>
-              <p>
-                <b>Language:</b> {news.sentiment?.language}
-              </p>
-              <p>
-                <b>Source:</b> {news.sentiment?.source}
-              </p>
-              <p>
-                <b>Vader Neutral:</b> {news.sentiment?.vader_neu}
-              </p>
-              <p>
-                <b>Vader Positive:</b> {news.sentiment?.vader_pos}
-              </p>
-              <p>
-                <b>Vader Negative:</b> {news.sentiment?.vader_neg}
-              </p>
-              <p>
-                <b>Vader Compound:</b> {news.sentiment?.vader_comp}
-              </p>
-              <p>
-                <b>Multitext Class:</b> {news.sentiment?.multitext_class}
-              </p>
+              <div className="flex flex-col gap-0.5">
+                <p>
+                  <b>Score:</b>{" "}
+                  {news.sentiment?.score ? news.sentiment?.score * 100 : 0}%
+                </p>
+                <p>
+                  <b>Positive:</b>{" "}
+                  {news.sentiment?.positive
+                    ? news.sentiment?.positive * 100
+                    : 0}
+                  %
+                </p>
+                <p>
+                  <b>Negative:</b>{" "}
+                  {news.sentiment?.negative
+                    ? news.sentiment?.negative * 100
+                    : 0}
+                  %
+                </p>
+                <p>
+                  <b>Neutral:</b>{" "}
+                  {news.sentiment?.neutral ? news.sentiment?.neutral * 100 : 0}%
+                </p>
+                <p>
+                  <b>Confidence:</b>{" "}
+                  {news.sentiment?.confidence
+                    ? news.sentiment?.confidence * 100
+                    : 0}
+                  %
+                </p>
+                <p>
+                  <b>Subjectivity:</b>{" "}
+                  {news.sentiment?.subjectivity
+                    ? news.sentiment?.subjectivity * 100
+                    : 0}
+                  %
+                </p>
+                <p>
+                  <b>Language:</b> {news.sentiment?.language}
+                </p>
+                <p>
+                  <b>Source:</b> {news.sentiment?.source}
+                </p>
+                <p>
+                  <b>Vader Neutral:</b>{" "}
+                  {news.sentiment?.vader_neu
+                    ? (Math.round(news.sentiment?.vader_neu * 100) / 100) * 100
+                    : 0}
+                  %
+                </p>
+                <p>
+                  <b>Vader Positive:</b>{" "}
+                  {news.sentiment?.vader_pos
+                    ? (Math.round(news.sentiment?.vader_pos * 100) / 100) * 100
+                    : 0}
+                  %
+                </p>
+                <p>
+                  <b>Vader Negative:</b>{" "}
+                  {news.sentiment?.vader_neg
+                    ? (Math.round(news.sentiment?.vader_neg * 100) / 100) * 100
+                    : 0}
+                  %
+                </p>
+                <p>
+                  <b>Vader Compound:</b>{" "}
+                  {news.sentiment?.vader_comp
+                    ? (Math.round(news.sentiment?.vader_comp * 100) / 100) * 100
+                    : 0}
+                  %
+                </p>
+                <p>
+                  <b>Multitext Class:</b>{" "}
+                  {news.sentiment?.multitext_class == 1
+                    ? "Positive"
+                    : news.sentiment?.multitext_class == 2
+                    ? "Negative"
+                    : "Neutral"}
+                </p>
+              </div>
             </div>
           </div>
         </div>
