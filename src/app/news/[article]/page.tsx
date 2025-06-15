@@ -1,7 +1,7 @@
 "use client";
 
 import { fetchApi } from "@/tools/axios.tools";
-import { News } from "@/types";
+import { ApiResponse, News } from "@/types";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -10,23 +10,26 @@ const Article = () => {
   const [news, setNews] = useState<News | null>(null);
   const params = useParams<{ article: string }>();
 
-  const fetchArticle = async (articleId: string): Promise<News | null> => {
+  const fetchArticle = async (
+    articleId: string
+  ): Promise<ApiResponse<News>> => {
     const response = await fetchApi<News>({
       method: "GET",
       url: `/core/v1/news/${articleId}`,
     });
-    if (response.success) {
-      setNews(response.data);
-      return response.data;
-    }
-    throw new Error(response.error_message);
+    return response;
   };
 
   const initialize = async () => {
     try {
       if (params.article) {
         const articleId = params.article;
-        await fetchArticle(articleId);
+        const data = await fetchArticle(articleId);
+        if (data.success) {
+          setNews(data.data);
+        } else {
+          console.error("Failed to fetch article:", data.error_message);
+        }
       } else {
         console.error("No article ID provided in the URL.");
       }
@@ -43,6 +46,18 @@ const Article = () => {
       {news ? (
         <div className="grid grid-cols-3 ">
           <article className="flex flex-col gap-2 col-span-2">
+            {news.tickers?.length ? (
+              <div className="flex gap-1.5 mb-2">
+                {news.tickers.map((ticker) => (
+                  <span
+                    key={ticker}
+                    className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded"
+                  >
+                    {ticker}
+                  </span>
+                ))}
+              </div>
+            ) : null}
             <h1 className="text-4xl font-medium">{news.title}</h1>
             <span className="text-slate-900 text-lg font-medium">
               By {news.authors}
