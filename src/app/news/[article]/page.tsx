@@ -75,15 +75,15 @@ const Article = () => {
               </a>
               <div>
                 {news.sentiment?.polarity?.toLowerCase() == "negative" ? (
-                  <p className="bg-red-200 px-2 py-1 rounded-lg font-semibold w-fit text-sm">
+                  <p className="bg-red-200 px-2 py-1 rounded-lg font-semibold w-fit text-sm capitalize">
                     {news.sentiment.polarity}
                   </p>
                 ) : news.sentiment?.polarity?.toLowerCase() == "positive" ? (
-                  <p className="bg-green-200 font-semibold px-2 py-1 rounded-lg w-fit text-sm">
+                  <p className="bg-green-200 font-semibold px-2 py-1 rounded-lg w-fit text-sm capitalize">
                     {news.sentiment.polarity}
                   </p>
                 ) : (
-                  <p className="bg-slate-300 font-semibold px-2 py-1 rounded-lg w-fit text-sm">
+                  <p className="bg-slate-300 font-semibold px-2 py-1 rounded-lg w-fit text-sm capitalize">
                     {news.sentiment?.polarity}
                   </p>
                 )}

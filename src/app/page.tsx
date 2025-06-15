@@ -3,7 +3,6 @@
 import ArticleModule from "@/components/index/ArticleModule";
 import { fetchApi } from "@/tools/axios.tools";
 import { News } from "@/types";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home() {

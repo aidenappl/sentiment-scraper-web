@@ -34,16 +34,16 @@ const ArticleModule = ({ article }: { article: News }) => {
                 {article.sentiment.status?.id == 4 ? (
                   <>
                     {article.sentiment.polarity?.toLowerCase() == "negative" ? (
-                      <span className="bg-red-200 px-2 py-1 rounded-lg font-semibold">
+                      <span className="bg-red-200 px-2 py-1 rounded-lg font-semibold capitalize">
                         {article.sentiment.polarity}
                       </span>
                     ) : article.sentiment.polarity?.toLowerCase() ==
                       "positive" ? (
-                      <span className="bg-green-200 font-semibold px-2 py-1 rounded-lg">
+                      <span className="bg-green-200 font-semibold px-2 py-1 rounded-lg capitalize">
                         {article.sentiment.polarity}
                       </span>
                     ) : (
-                      <span className="bg-slate-300 font-semibold px-2 py-1 rounded-lg">
+                      <span className="bg-slate-300 font-semibold px-2 py-1 rounded-lg capitalize">
                         {article.sentiment.polarity}
                       </span>
                     )}
