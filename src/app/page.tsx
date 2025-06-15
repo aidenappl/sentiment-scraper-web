@@ -71,7 +71,20 @@ export default function Home() {
                 </a>
                 <a>
                   {article.sentiment ? (
-                    <span>{article.sentiment.sentiment_summary}</span>
+                    <div className="flex gap-2">
+                      <span className="font-semibold">
+                        {article.sentiment.status?.name != "Done"
+                          ? article.sentiment.status?.name
+                          : ""}
+                      </span>
+                      <span>{article.sentiment.polarity}</span>
+                      <span>
+                        {article.sentiment.confidence
+                          ? article.sentiment.confidence * 100
+                          : 0}
+                        % Confident
+                      </span>
+                    </div>
                   ) : (
                     <span>No Sentiment Data</span>
                   )}
