@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="px-10 max-w-[var(--max-page-width)] mx-auto text-center">
         <div className="flex justify-between">
           <p className="text-[var(--text-light-secondary)]">
-            &copy; {new Date().getFullYear()} Rooted
+            &copy; {new Date().getFullYear()} SentimentScraper
           </p>
           <p className="text-[var(--text-light-secondary)]">
             Project by{" "}
