@@ -4,7 +4,6 @@ import Link from "next/link";
 const ArticleModule = ({ article }: { article: News }) => {
   return (
     <div
-      key={article.id}
       id={article.id.toString()}
       className="mb-6 p-4 border rounded-lg text-sm"
     >
@@ -12,7 +11,7 @@ const ArticleModule = ({ article }: { article: News }) => {
         <div className="flex gap-1.5 mb-2">
           {article.tickers?.map((ticker) => (
             <span
-              key={ticker}
+              key={ticker + article.id}
               className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded"
             >
               {ticker}
