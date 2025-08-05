@@ -9,31 +9,37 @@ export default function Home() {
   const [news, setNews] = useState<News[] | null>(null);
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
-  const observerRef = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
   const isFetchingRef = useRef(false);
 
   const initialize = async () => {
     try {
-      const newsData = await getNews();
+      const newsData = await getNews(0);
       console.log("News data fetched successfully:", newsData);
-      setNews(newsData);
     } catch (error) {
       console.error("Error fetching news:", error);
     }
   };
 
-  const getNews = async (): Promise<News[]> => {
+  const getNews = async (offset: number = 0): Promise<News[]> => {
+    if (isFetchingRef.current) return []; // prevent duplicate calls
+    isFetchingRef.current = true;
+
     const response = await fetchApi<News[]>({
       method: "GET",
       url: "/core/v1/news",
       params: {
         limit: 25,
-        offset: 0,
+        offset: offset,
       },
     });
 
     if (response.success) {
-      setNews(response.data);
+      if (news != null) {
+        setNews([news, ...response.data]);
+      } else {
+        setNews(response.data);
+      }
       setHasMore(response.data.length === 25);
       isFetchingRef.current = false;
       return response.data;
