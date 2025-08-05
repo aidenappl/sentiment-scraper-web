@@ -11,6 +11,15 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const isFetchingRef = useRef(false);
+  const cooldownRef = useRef<number>(0);
+  const lastVisibleRef = useRef<HTMLDivElement | null>(null);
+
+  const canFetch = () => {
+    const now = Date.now();
+    if (now - cooldownRef.current < 500) return false; // 500ms cooldown
+    cooldownRef.current = now;
+    return true;
+  };
 
   const initialize = async () => {
     try {
@@ -36,7 +45,7 @@ export default function Home() {
 
     if (response.success) {
       if (news != null) {
-        setNews([news, ...response.data]);
+        setNews([...news, ...response.data]);
       } else {
         setNews(response.data);
       }
@@ -58,7 +67,12 @@ export default function Home() {
       if (observerRef.current) observerRef.current.disconnect();
 
       observerRef.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
+        if (entries[0].isIntersecting && hasMore && canFetch()) {
+          const articles = document.querySelectorAll(".article-item");
+          lastVisibleRef.current = articles[
+            articles.length - 1
+          ] as HTMLDivElement;
+
           const newOffset = offset + 25;
           setOffset(newOffset);
           getNews(newOffset);
@@ -69,6 +83,17 @@ export default function Home() {
     },
     [offset, hasMore]
   );
+
+  useEffect(() => {
+    if (lastVisibleRef.current) {
+      requestAnimationFrame(() => {
+        lastVisibleRef.current?.scrollIntoView({
+          behavior: "auto",
+          block: "start",
+        });
+      });
+    }
+  }, [news]);
 
   return (
     <div className="min-h-[calc(100vh-100px)] p-4">

@@ -5,7 +5,7 @@ const ArticleModule = ({ article }: { article: News }) => {
   return (
     <div
       id={article.id.toString()}
-      className="mb-6 p-4 border rounded-lg text-sm"
+      className="article-item mb-6 p-4 border rounded-lg text-sm"
     >
       <Link href={`/news/${article.id}`} className="flex flex-col gap-1">
         <div className="flex gap-1.5 mb-2">
